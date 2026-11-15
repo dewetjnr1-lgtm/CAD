@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Pocket CAD</title>
+<meta name="description" content="Touch-first 3D model editor for 3D printing. Open STL, push/pull faces, add holes, export STL or 3MF.">
+<meta name="theme-color" content="#14171c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pocket CAD">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>/*CSS*/</style>
+</head>
+<body>
+<div id="app">
+  <header id="top">
+    <button id="btnMenu" class="icon" aria-label="Menu">☰</button>
+    <div id="title"><div id="fileName">No model yet</div><div id="sizeLabel">Loading…</div></div>
+    <span id="saveDot" title="Auto-saved"></span>
+    <button id="badge" class="badge" aria-label="Watertight check">—</button>
+    <button id="btnUndo" class="icon" aria-label="Undo">↶</button>
+    <button id="btnRedo" class="icon" aria-label="Redo">↷</button>
+  </header>
+  <main id="view">
+    <div id="labels"></div>
+    <div id="chips">
+      <button id="snapChip" class="chip">Snap<br>1 mm</button>
+      <button id="fitBtn" class="chip">Fit</button>
+      <button id="viewBtn" class="chip">View<br>3D</button>
+      <button id="helpChip" class="chip" aria-label="Help">?</button>
+    </div>
+    <div id="hint"></div>
+  </main>
+  <section id="sheet" class="hidden"></section>
+  <nav id="toolbar">
+    <button id="tbOpen"><span>📂</span>Open</button>
+    <button id="tbAdd"><span>＋</span>Add / Cut</button>
+    <button id="tbArrange"><span>⤧</span>Arrange</button>
+    <button id="tbMeasure"><span>📏</span>Measure</button>
+    <button id="tbExport"><span>⬇</span>Export</button>
+  </nav>
+</div>
+<div id="toast"></div>
+<div id="busy" class="hidden"><div class="spinner"></div><div id="busyText">Working…</div></div>
+<div id="modal" class="hidden"><div id="modalCard" class="card"></div></div>
+<div id="drawer" class="hidden"><div id="drawerCard"></div></div>
+<div id="splash"><div class="spinner"></div><div>Starting Pocket CAD…</div></div>
+<input type="file" id="fileInput" hidden>
+<script>/*JS*/</script>
+</body>
+</html>

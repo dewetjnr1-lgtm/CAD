@@ -1,0 +1,28 @@
+{
+  "name": "pocket-cad",
+  "version": "1.0.0",
+  "description": "Touch-first 3D model editor for 3D printing (PWA)",
+  "scripts": {
+    "test": "node test/core.test.mjs && node test/e2e.cjs && node test/offline.cjs",
+    "build": "node build.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dewetjnr1-lgtm/CAD.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dewetjnr1-lgtm/CAD/issues"
+  },
+  "homepage": "https://github.com/dewetjnr1-lgtm/CAD#readme",
+  "dependencies": {
+    "esbuild": "^0.28.2",
+    "manifold-3d": "^3.5.5",
+    "three": "^0.181.0",
+    "three-bvh-csg": "^0.0.18",
+    "three-mesh-bvh": "^0.9.7"
+  },
+  "type": "module"
+}
