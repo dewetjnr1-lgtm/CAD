@@ -29,6 +29,7 @@ button { font: inherit; color: inherit; }
 #view canvas { display: block; touch-action: none; }
 #labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .label3d { position: absolute; left: 0; top: 0; background: rgba(20,23,28,.9); border: 1px solid var(--line); padding: 3px 8px; border-radius: 8px; font-size: 13px; white-space: nowrap; color: var(--text); }
+#labels.off .label3d:not(.dragLabel) { display: none; }
 .label3d.dragLabel { border-color: var(--accent); color: #fff; font-weight: 600; font-size: 15px; }
 .label3d.measLabel { border-color: var(--warn); font-weight: 600; }
 #chips { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 6px; pointer-events: none; width: 64px; }

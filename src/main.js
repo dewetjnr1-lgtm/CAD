@@ -898,7 +898,7 @@ function updateFeaturePreview() {
       const t = featureWorld(F.type, featureParams(), M, featurePattern(), sceneSize() * 2 + 10);
       addPreview(t.solid, t.op);
       freeSolid(t.solid);
-      addLabel(`${fmt(F.place.U)} from left · ${fmt(F.place.V)} from bottom`, origin, 'prevLabel');
+      addLabel(`← ${fmt(F.place.U)}  ↓ ${fmt(F.place.V)} mm`, origin, 'prevLabel');
     } catch (e) { toast(e.message, 'error'); }
   }, 60);
 }
@@ -982,8 +982,12 @@ function renderFeatureSheet() {
   ];
   if (pat.type === 'linear') patRows.push(numField('Count', pat.count, (v) => { pat.count = v; upd(); }, { min: 2, max: 50, int: true, unit: '×', digits: 0 }), numField('Spacing', pat.spacing, (v) => { pat.spacing = v; upd(); }, {}), choice('Direction', [['u', 'Across →'], ['v', 'Up ↑']], pat.dir, (v) => { pat.dir = v; upd(); }));
   if (pat.type === 'circular') patRows.push(h('p', { class: 'note' }, 'Copies turn around the centre of the face.'), numField('Count', pat.count, (v) => { pat.count = v; upd(); }, { min: 2, max: 72, int: true, unit: '×', digits: 0 }), numField('Total angle', pat.angle, (v) => { pat.angle = v; upd(); }, { min: 1, max: 360, unit: '°' }));
+  const turn = 'angle' in P ? h('div', { class: 'grid2' },
+    btn('⟲ Turn 90°', () => { P.angle = ((P.angle || 0) + 90) % 360; renderFeatureSheet(); upd(); }),
+    btn('⟳ Turn −90°', () => { P.angle = ((P.angle || 0) + 270) % 360; renderFeatureSheet(); upd(); })) : null;
   showSheet(def.name, [
-    h('p', { class: 'info' }, def.desc + '. Red preview = material removed, green = material added.'),
+    h('p', { class: 'info' }, def.desc + '. Red preview = material removed, green = material added. Drag with one finger to turn the view and check it from all sides.'),
+    turn,
     ...rows, ...placeRows, ...patRows,
     h('div', { class: 'row end' }, btn('Cancel', () => cancelModes()), btn('Apply', applyFeature, 'primary')),
   ], { onClose: () => cancelModes() });
@@ -1553,6 +1557,14 @@ $('badge').onclick = showCheck;
 $('fitBtn').onclick = () => fitView();
 $('viewBtn').onclick = () => { viewIdx = (viewIdx + 1) % VIEWS.length; $('viewBtn').innerHTML = 'View<br>' + VIEWS[viewIdx][0]; fitView(new THREE.Vector3(...VIEWS[viewIdx][1])); };
 $('helpChip').onclick = showHelp;
+// show / hide the measurement labels drawn over the 3D view (the push/pull distance always shows)
+function setLabelsOn(on) {
+  $('labels').classList.toggle('off', !on);
+  $('labelsChip').innerHTML = 'Labels<br>' + (on ? 'on' : 'off');
+  try { localStorage.setItem('pocketcad.labels', on ? '1' : '0'); } catch (e) { /* storage blocked */ }
+}
+$('labelsChip').onclick = () => setLabelsOn($('labels').classList.contains('off'));
+try { if (localStorage.getItem('pocketcad.labels') === '0') setLabelsOn(false); } catch (e) { /* ignore */ }
 const SNAPS = [0, 0.5, 1, 5];
 $('snapChip').onclick = () => {
   S.snap = SNAPS[(SNAPS.indexOf(S.snap) + 1) % SNAPS.length];
